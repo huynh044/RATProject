@@ -1,1 +1,1 @@
-"# RAT Project" 
+# RAT Project
