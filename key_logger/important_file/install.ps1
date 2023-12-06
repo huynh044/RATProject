@@ -3,12 +3,14 @@ function random_text {
 }
 
 $folder = random_text
-$path = "$env:TEMP/$folder"
-$inital_path = $pwd
+$path = $env:TEMP
+$inital_path = pwd
 
-
-mkdir $path
 cd $path
+mkdir $folder
+cd $folder
 echo " " > test.txt
 
 cd $inital_path
+del install.ps1
+
