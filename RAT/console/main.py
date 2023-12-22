@@ -150,7 +150,7 @@ def cli(args):
         while(True):
             options = input(f"{header}")
             if options == "help":
-                print(help_menu)
+                print(options_menu)
             elif options == "quit":
                 terminated()
             elif options == "0":
