@@ -112,7 +112,7 @@ def take_camera_picture(address, username, password, path):
     
     
 def terminated():
-    return
+    sys.exit()
 
 def read_config_file(config_file):
     config_json = {}
