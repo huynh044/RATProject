@@ -148,7 +148,6 @@ def cli(args):
         USERNAME = config_json['USERNAME'].strip()
         TEMP = config_json["WOKING_TEMP"].strip().replace("\\", "/")
         STARTUP = config_json["WOKING_STARTUP"].strip().replace("\\", "/")
-        print(IPADDRESS, PASSWORD, USERNAME, TEMP, STARTUP)
         while(True):
             options = input(f"{header}")
             if options == "help":
