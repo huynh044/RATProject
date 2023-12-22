@@ -139,14 +139,16 @@ def restart_pc(address, username, password):
 
 def cli(args): 
     print(banner)
+    print(read_config_file(args))
     
     if args.endswith(".rat"):
         config_json = read_config_file(args)
-        IPADDRESS = config_json["IPADDRESS"]
-        PASSWORD = config_json["PASSWORD"]
-        USERNAME = config_json['USERNAME']
-        TEMP = config_json["WOKING_TEMP"]
-        STARTUP = config_json["WOKING_STARTUP"]
+        IPADDRESS = config_json["IPADDRESS"].strip()
+        PASSWORD = config_json["PASSWORD"].strip()
+        USERNAME = config_json['USERNAME'].strip()
+        TEMP = config_json["WOKING_TEMP"].strip().replace("\\", "/")
+        STARTUP = config_json["WOKING_STARTUP"].strip().replace("\\", "/")
+        print(IPADDRESS, PASSWORD, USERNAME, TEMP, STARTUP)
         while(True):
             options = input(f"{header}")
             if options == "help":
